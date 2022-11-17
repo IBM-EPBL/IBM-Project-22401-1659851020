@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 
 import ibm_db
 import bcrypt
-conn = ibm_db.connect("DATABASE=bludb;HOSTNAME=ba99a9e6-d59e-4883-8fc0-d6a8c9f7a08f.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud;PORT=31321;SECURITY=SSL;SSLServerCertificate=DigiCertGlobalRootCA.crt;PROTOCOL=TCPIP;UID=dcl74999;PWD=Px6tqEmXL9AcQigs ",'','')
+conn = ibm_db.connect("DATABASE=bludb;HOSTNAME=b1bc1829-6f45-4cd4-bef4-10cf081900bf.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud;PORT=32304;SECURITY=SSL;SSLServerCertificate=DigiCertGlobalRootCA.crt;PROTOCOL=TCPIP;UID=rqj83021;PWD=WHA8kjeDIcLx6jxd",'','')
 
 # url_for('static', filename='style.css')
 
@@ -74,7 +74,7 @@ def login():
 
     return render_template('Login.html',name='Home')
 
-@app.route("/apply",methods=['GET','POST'])
+@app.route("/plasmarequest",methods=['GET','POST'])
 def apply():
   if request.method == 'POST':
     name = request.form.get('name')
@@ -89,7 +89,7 @@ def apply():
     password = request.form['password']
 
     if not name or not email or not mobile or not age or not gender or not blood_group or not aadhar or not state or not city or not password:
-      return render_template('Apply.html',error='Please fill all fields')
+      return render_template('plasmarequest.html',error='Please fill all fields')
 
     hash=bcrypt.hashpw(password.encode('utf-8'),bcrypt.gensalt())
 
@@ -114,11 +114,11 @@ def apply():
       ibm_db.bind_param(prep_stmt, 9, city)
       ibm_db.bind_param(prep_stmt, 10, password)
       ibm_db.execute(prep_stmt)
-      return render_template('Apply.html',success="Successfully Registered")
+      return render_template('.html',success="Successfully Registered")
     else:
-      return render_template('Apply.html',error='Please check the details you have entered')
+      return render_template('plasmadonarrequest.html',error='Please check the details you have entered')
 
-  return render_template('Apply.html',name='Home')
+  return render_template('plasmadonarrequest.html',name='Home')
 
 @app.route("/rqst",methods=['GET','POST'])
 def rqst():
@@ -143,9 +143,9 @@ def rqst():
     ibm_db.bind_param(prep_stmt, 7, address)
     ibm_db.bind_param(prep_stmt, 8, date)
     ibm_db.execute(prep_stmt)
-    return render_template('request.html',success="Successfully Registered")
+    return render_template('donarrequest.html',success="Successfully Registered")
 
-  return render_template('request.html',name='Home')
+  return render_template('donarrequest.html',name='Home')
 
 @app.route('/logout')
 def logout():
