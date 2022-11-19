@@ -1,5 +1,3 @@
-Aim: AS a user, I can register and make request for plasma donation.
-
 from distutils.log import debug
 from sendgridmail import sendmail
 from flask import Flask, render_template, request, redirect, url_for, session
